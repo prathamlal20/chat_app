@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:chat_app/pages/auth/signup_page.dart';
 import 'package:chat_app/widgets/widgets.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
                 const Text(
                   "Let's Rise",
                   style: TextStyle(
-                    fontSize: 40,
+                    fontSize: 30,
                     fontWeight: FontWeight.bold,
                     color: Color.fromRGBO(179, 36, 179, 1.0),
                   ),
@@ -39,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
                 const Text(
                   "With",
                   style: TextStyle(
-                    fontSize: 40,
+                    fontSize: 30,
                     fontWeight: FontWeight.bold,
                     color: Color.fromRGBO(179, 36, 179, 1.0),
                   ),
@@ -48,18 +49,14 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 10),
                 
                 const Text(
-                  "Friends",
+                  "Kandis",
                   style: TextStyle(
-                    fontSize: 40,
+                    fontSize: 30,
                     fontWeight: FontWeight.bold,
                     color: Color.fromRGBO(179, 36, 179, 1.0),
                   ),
                 ),
-                const Text(
-                  "Login To Enjoy!",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                Image.asset("assets/login.png"),
+                Image.asset("assets/login.png",height: 200,width: 500,),
                 TextFormField(
                   decoration: textInputDecoration.copyWith(
                     hintText: "Email",
@@ -133,12 +130,13 @@ class _LoginPageState extends State<LoginPage> {
                 Text.rich(
                   TextSpan(
                     text: "Don't have an account?",
-                    style: const TextStyle(color: Colors.black12,fontSize: 10),
+                    style: const TextStyle(color: Colors.black,fontSize: 14),
                     children: <TextSpan>[
                       TextSpan(
                         text: "Sign Up",
                         style: const TextStyle(color: Colors.blue,fontSize: 14,decoration: TextDecoration.underline),
                         recognizer: TapGestureRecognizer()..onTap=() {
+                          nextscreen(context, const SignUpPage());
                         },
                       ),
                     ],
