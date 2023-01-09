@@ -10,6 +10,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
+import '../../helper/helper_function.dart';
 import '../home_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -171,6 +172,11 @@ class _LoginPageState extends State<LoginPage> {
           QuerySnapshot snapshot = await DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid)
             .gettingUserData(email);
           // saving the values to our shared preferences
+          await HelperFunctions.saveUserLoggedInStatus(true);
+          await HelperFunctions.saveUserEmailSF(email);
+          await HelperFunctions.saveUserNameSF(
+            snapshot.docs[0]['fullName']
+          );
           
           nextscreenReplace(context, const HomePage());
         }
