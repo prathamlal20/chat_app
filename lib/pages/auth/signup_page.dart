@@ -1,4 +1,7 @@
+import 'package:chat_app/helper/helper_function.dart';
 import 'package:chat_app/pages/auth/login_page.dart';
+import 'package:chat_app/pages/home_page.dart';
+import 'package:chat_app/services/auth_service.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +20,7 @@ class _SignUpPageState extends State<SignUpPage> {
   String email="";
   String password="";
   String fullName="";
+  AuthService authService = AuthService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +64,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   onChanged: (val){
                       setState(() {
-                        email = val;
+                        fullName = val;
                       });
                     }, 
 
@@ -143,9 +147,9 @@ class _SignUpPageState extends State<SignUpPage> {
                     },
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
+                
+                const SizedBox(height: 10,),
+                
                 Text.rich(
                   TextSpan(
                     text: "Already have an account?",
@@ -173,6 +177,21 @@ class _SignUpPageState extends State<SignUpPage> {
     if(formkey.currentState!.validate()){
       setState(() {
         _isLoading = true;
+      });
+      await authService.registerUserWithEmailandPassword(fullName, email, password).then((value) async{
+        if(value==true){
+          //saving the shared preference state
+          await HelperFunctions.saveUserLoggedInStatus(true);
+          await HelperFunctions.saveUserEmailSF(email);
+          await HelperFunctions.saveUserNameSF(fullName);
+          nextscreenReplace(context, const HomePage());
+        }
+        else{
+          showSnackBar(context, Colors.red, value );
+          setState(() {
+            _isLoading=false;
+          });
+        }
       });
     }
   }
